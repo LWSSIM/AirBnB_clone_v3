@@ -158,5 +158,20 @@ Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twit
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
 
 Second part of Airbnb: Joann Vuong
+
+### AfterFork
+EL MNAJJA WASSIM - [Github](https://github.com/LWSSIM) / [X](https://twitter.com/_LWSSIM)
+  - Third part of Airbnb:
+    + Implementing a RESTful API architecture!
+    + Improving the storage engine to manage file storage and database storage!
+    + More TESTS!
+
+> [!NOTE]
+
+> Check this [README](https://github.com/LWSSIM/AirBnB_clone_v2/blob/master/README.md) for more information about the second part of the Airbnb project.
+
+> Check this [README](https://github.com/LWSSIM/AirBnB_clone_v2/blob/master/web_flask/README.md) for Flask API basic implementation.
+
+
 ## License
 Public Domain. No copy write protection. 
