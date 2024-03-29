@@ -79,6 +79,31 @@ class TestFileStorage(unittest.TestCase):
         self.assertIs(new_dict, storage._FileStorage__objects)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """Test that get returns the object based on the class and id"""
+        storage = FileStorage()
+        new_dict = storage.all()
+        for key, value in new_dict.items():
+            with self.subTest(key=key, value=value):
+                self.assertEqual(value, storage.get(value.__class__, value.id))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_all(self):
+        """Test that count returns the number of objects in storage"""
+        storage = FileStorage()
+        new_dict = storage.all()
+        self.assertEqual(len(new_dict), storage.count())
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_cls(self):
+        """Test that count returns the number of objects in storage of a cls"""
+        storage = FileStorage()
+        new_dict = storage.all()
+        for key, value in new_dict.items():
+            with self.subTest(key=key, value=value):
+                self.assertEqual(1, storage.count(value.__class__))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_new(self):
         """test that new adds an object to the FileStorage.__objects attr"""
         storage = FileStorage()
