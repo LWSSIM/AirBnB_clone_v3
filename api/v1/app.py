@@ -13,6 +13,13 @@ app.register_blueprint(app_views)
 host = getenv('HBNB_API_HOST')
 port = getenv('HBNB_API_PORT')
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """ Method to handle 404 error """
+    return {"error": "Not found"}, 404
+
+
 @app.teardown_appcontext
 def teardown(self):
     """ Method to close the session """
