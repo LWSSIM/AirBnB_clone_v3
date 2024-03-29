@@ -7,6 +7,7 @@ from datetime import datetime
 import inspect
 import models
 from models.engine import db_storage
+from models import storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -76,13 +77,46 @@ class TestFileStorage(unittest.TestCase):
         self.assertIs(type(models.storage.all()), dict)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_all_no_class(self):
-        """Test that all returns all rows when no class is passed"""
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_new(self):
         """test that new adds an object to the database"""
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_all_and_count(self):
+        """Test that all returns all rows when no class is passed"""
+        dumy = State(name="dummy")
+        dumy2 = City(name="dummy2", state_id=dumy.id)
+        storage.new(dumy)
+        storage.new(dumy2)
+        storage.save()
+        self.assertEqual(len(storage.all()), 2)
+        storage.delete(dumy)
+        storage.delete(dumy2)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get(self):
+        """Test that get returns the correct object"""
+        dumy = State(name="dummy")
+        storage.new(dumy)
+        storage.save()
+        obj = storage.get(State, dumy.id)
+        self.assertEqual(obj, dumy)
+        storage.delete(dumy)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count(self):
+        """Test that count returns the correct number of objects"""
+        dumy = State(name="dummy")
+        dumy2 = City(name="dummy2", state_id=dumy.id)
+        storage.new(dumy)
+        storage.new(dumy2)
+        storage.save()
+        count = storage.count()
+        self.assertEqual(count, 2)
+        count = storage.count(State)
+        self.assertEqual(count, 1)
+        storage.delete(dumy)
+        storage.delete(dumy2)
