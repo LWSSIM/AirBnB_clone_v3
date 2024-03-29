@@ -25,7 +25,6 @@ def teardown(self):
     """ Method to close the session """
     from models import storage
 
-
     storage.close()
 
 
