@@ -5,7 +5,7 @@
 from api.v1.views import app_views
 from models import storage
 from models.user import User
-from flask import abort, request
+from flask import abort, jsonify, request
 
 
 @app_views.route('/users', methods=['GET'])
@@ -13,7 +13,7 @@ def all_users():
     """ return all users """
     users = storage.all(User)
     users_list = [user.to_dict() for user in users.values()]
-    return users_list, 200
+    return jsonify(users_list), 200
 
 
 @app_views.route('/users/<user_id>', methods=['GET'])
@@ -22,7 +22,7 @@ def get_user(user_id):
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
-    return user.to_dict(), 200
+    return jsonify(user.to_dict()), 200
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'])
