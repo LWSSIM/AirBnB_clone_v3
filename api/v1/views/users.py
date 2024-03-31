@@ -47,8 +47,7 @@ def post_user():
     elif 'password' not in req:
         abort(400, 'Missing password')
 
-    user = User()
-    user.__dict__.update(req)
+    user = User(**req)
     user.save()
     return user.to_dict(), 201
 
