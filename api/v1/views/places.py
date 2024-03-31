@@ -59,7 +59,7 @@ def post_place(city_id):
         abort(400, 'Missing name')
 
     if storage.get(User, data['user_id']) is None:
-        abort(404) # User not found
+        abort(404)  # User not found
 
     data['city_id'] = city_id
     place = Place(**data)
@@ -77,7 +77,7 @@ def put_place(place_id):
     data = request.get_json(force=True, silent=True)
     if data is None:
         abort(400, 'Not a JSON')
-        
+
     for key, value in data.items():
         if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
             setattr(place, key, value)
