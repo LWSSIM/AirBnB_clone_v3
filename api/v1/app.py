@@ -17,6 +17,7 @@ port = getenv('HBNB_API_PORT')
 
 cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     """ Method to handle 404 error """
