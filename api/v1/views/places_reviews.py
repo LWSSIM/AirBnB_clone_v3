@@ -73,8 +73,15 @@ def update_review(review_id):
     data = request.get_json()
     if data is None:
         return jsonify({'error': 'Not a JSON'}), 400
+
+    spcl_vals = [
+        'id', 'user_id',
+        'place_id', 'created_at',
+        'updated_at'
+    ]
     for key, value in data.items():
-        if key not in ['id', 'user_id', 'place_id', 'created_at', 'updated_at']:
+        if key not in spcl_vals:
             setattr(review, key, value)
+
     storage.save()
     return jsonify(review.to_dict()), 200
