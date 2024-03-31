@@ -4,26 +4,28 @@
 
 from api.v1.views import app_views
 from flask import jsonify, abort, request
-from models import storage
+from models import storage, storage_t
 from models.place import Place
 from models.amenity import Amenity
 
 
 @app_views.route('/places/<place_id>/amenities', methods=['GET'])
-def get_amenities(place_id):
+def get_place_amenities(place_id):
     """ retrieves the list of all Amenity objects of a Place """
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
-    amenities = [amenity.to_dict() for amenity in place.amenities]
+    if storage_t == 'db':
+        amenities = [amenity.to_dict() for amenity in place.amenities]
+    else:
+        amenities = [amenity.to_dict() for amenity in place.amenity_ids]
+
     return jsonify(amenities), 200
 
 
-@app_views.route(
-    '/places/<place_id>/amenities/<amenity_id>',
-    methods=['DELETE']
-)
-def delete_amenity(place_id, amenity_id):
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                 methods=['DELETE'])
+def delete_place_amenity(place_id, amenity_id):
     """ deletes a Amenity object """
     place = storage.get(Place, place_id)
     if place is None:
@@ -38,11 +40,9 @@ def delete_amenity(place_id, amenity_id):
     return jsonify({}), 200
 
 
-@app_views.route(
-    '/places/<place_id>/amenities/<amenity_id>',
-                 methods=['POST']
-)
-def create_amenity(place_id, amenity_id):
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                 methods=['POST'])
+def create_place_amenity(place_id, amenity_id):
     """ creates a Amenity object """
     place = storage.get(Place, place_id)
     if place is None:
