@@ -6,6 +6,7 @@ import unittest
 from api.v1.app import app
 import models
 
+
 class TestIndexView(unittest.TestCase):
     """Test index view api
         Get (url_prefix)/status
