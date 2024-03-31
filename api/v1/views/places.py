@@ -7,7 +7,7 @@ from models import storage
 from models.city import City
 from models.user import User
 from models.place import Place
-from flask import request, abort
+from flask import jsonify, request, abort
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'])
@@ -18,7 +18,7 @@ def get_places(city_id):
         abort(404)
 
     places = [place.to_dict() for place in city.places]
-    return places, 200
+    return jsonify(places), 200
 
 
 @app_views.route('/places/<place_id>', methods=['GET'])
@@ -28,7 +28,7 @@ def get_place(place_id):
     if place is None:
         abort(404)
 
-    return place.to_dict(), 200
+    return jsonify(place.to_dict()), 200
 
 
 @app_views.route('/places/<place_id>', methods=['DELETE'])
@@ -77,6 +77,7 @@ def put_place(place_id):
     data = request.get_json(force=True, silent=True)
     if data is None:
         abort(400, 'Not a JSON')
+        
     for key, value in data.items():
         if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
             setattr(place, key, value)
