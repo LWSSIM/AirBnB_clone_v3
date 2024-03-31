@@ -3,6 +3,7 @@
 
 
 from flask import Flask
+from flask_cors import CORS
 from api.v1.views import app_views
 from os import getenv
 
@@ -14,6 +15,7 @@ app.register_blueprint(app_views)
 host = getenv('HBNB_API_HOST')
 port = getenv('HBNB_API_PORT')
 
+cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
 @app.errorhandler(404)
 def page_not_found(e):
