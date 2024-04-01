@@ -40,7 +40,7 @@ def del_place(place_id):
 
     storage.delete(place)
     storage.save()
-    return {}, 200
+    return jsonify({}), 200
 
 
 @app_views.route('/cities/<city_id>/places', methods=['POST'])
@@ -64,7 +64,7 @@ def post_place(city_id):
     data['city_id'] = city_id
     place = Place(**data)
     place.save()
-    return place.to_dict(), 201
+    return jsonify(place.to_dict()), 201
 
 
 @app_views.route('/places/<place_id>', methods=['PUT'])
@@ -83,7 +83,7 @@ def put_place(place_id):
             setattr(place, key, value)
 
     place.save()
-    return place.to_dict(), 200
+    return jsonify(place.to_dict()), 200
 
 
 @app_views.route('/places_search', methods=['POST'])
