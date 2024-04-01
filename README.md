@@ -54,6 +54,11 @@ Classes inherited from Base Model:
 * [state.py](/models/state.py)
 * [user.py](/models/user.py)
 
+### Data Diagram
+
+![image](https://github.com/LWSSIM/AirBnB_clone_v3/assets/127129101/51b57f7b-d948-4c9a-a232-c709c5aacbf2)
+
+
 #### `/models/engine` directory contains File Storage class that handles JASON serialization and deserialization :
 [file_storage.py](/models/engine/file_storage.py) - serializes instances to a JSON file & deserializes back to instances
 * `def all(self)` - returns the dictionary __objects
