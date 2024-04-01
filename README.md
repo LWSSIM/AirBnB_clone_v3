@@ -150,6 +150,46 @@ EOF  all  create  destroy  help  quit  show  update
 (hbnb) quit
 ```
 
+
+## REST API with Flask
+
+Added after forking, to implement a rest api structure, using Flask to handle routing of api views!
+
+This new api works on both storage models (db or file);
+
+    - Check /api/v1/views for more.
+    - Also added some unittests for the api model.
+
+### Run
+
+To start using the api:
+
+    - Make sure you have the right venv: (see `/FlaskSqlAlchemy` for the full config list)
+    - Run the following the run the api on localhost: (pay attention the the `ENV_VARS` as they influence the code)
+   
+```bash
+# for a session with file storage
+$ python3 -m api.v1.app
+# for a session with db storage  engine
+$ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db HBNB_API_HOST=0.0.0.0 HBNB_API_PORT=5000 python3 -m api.v1.app
+```
+
+### Test
+Test using unittest:
+
+```bash
+# run in the root of project
+
+# for a testing with file storage
+$ python3 -m unittest discover tests 
+# for a testing with db storage  engine
+$ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db HBNB_API_HOST=0.0.0.0 HBNB_API_PORT=5000 python3 -m unittest discover tests
+```
+
+
+![image](https://github.com/LWSSIM/AirBnB_clone_v3/assets/127129101/0150f968-45b0-4670-8ba6-1012aabc6143)
+
+
 ## Bugs
 No known bugs at this time. 
 
