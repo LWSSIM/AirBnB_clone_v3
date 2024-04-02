@@ -102,7 +102,7 @@ def post_places_search():
     if 'states' in data and data['states'] != []:
         places = [
             place for place
-            in places if place.city.state_id
+            in places if storage.get(City, place.city_id).state_id
             in data['states']
         ]
 
