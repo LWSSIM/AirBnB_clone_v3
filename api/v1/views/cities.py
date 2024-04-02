@@ -6,7 +6,7 @@ from api.v1.views import app_views
 from models import storage
 from models.city import City
 from models.state import State
-from flask import abort, request
+from flask import abort, jsonify, request
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
@@ -16,7 +16,7 @@ def all_cities(state_id):
     if state is None:
         abort(404)
     cities = [city.to_dict() for city in state.cities]
-    return cities, 200
+    return jsonify(cities), 200
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'])
