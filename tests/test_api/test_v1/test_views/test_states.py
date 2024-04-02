@@ -103,7 +103,7 @@ class TestStatesView(unittest.TestCase):
             id = response.json.get('id')
         with self.app as client:
             response = client.put(
-                f'/api/v1/states/{id}', json={"city": "Santos"}
+                '/api/v1/states/{}'.format(id), json={"city": "Santos"}
             )
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.json.get('city'), 'Santos')
